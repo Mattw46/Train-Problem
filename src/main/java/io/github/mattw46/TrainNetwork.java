@@ -54,6 +54,12 @@ public class TrainNetwork {
         return Math.abs('A' - station);
     }
     
+    // test if link from start to end is valid
+    public boolean isValidLink(char start, char end) {
+        return network[mapStation(start)][mapStation(end)] > 0;
+    }
+    
+    // returns the distance between stations or 0 where no link exists
     public int getLinkDistance(char start, char end) {
         return network[mapStation(start)][mapStation(end)];
     }

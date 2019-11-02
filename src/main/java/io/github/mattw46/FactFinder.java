@@ -10,34 +10,69 @@ package io.github.mattw46;
  * @author Matthew Wall
  */
 public class FactFinder {
+    TrainNetwork tn;
+    final String routeError = "NO SUCH ROUTE";
     
     public FactFinder() {
-        TrainNetwork tn = new TrainNetwork();
+        tn = new TrainNetwork();
     }
     
     // Find distance of route A-B-C
     public String Question1() {
-        return "Output #1: ";
+        String returnString = "Output #1: ";
+        if (!tn.isValidLink('A', 'B') || !tn.isValidLink('B', 'C')) {
+            return returnString + routeError;
+        }
+        int distance = tn.getLinkDistance('A', 'B');
+        distance += tn.getLinkDistance('B', 'C');
+        return returnString + distance;
     }
     
     // Find distance of route A-D
     public String Question2() {
-        return "Output #2: ";
+        String returnString = "Output #2: ";
+        if (!tn.isValidLink('A', 'D')) {
+            return returnString + routeError;
+        }
+        int distance = tn.getLinkDistance('A', 'D');
+        return returnString + distance;
     }
     
     // Find distance of route A-D-C
     public String Question3() {
-        return "Output #3: ";
+        String returnString = "Output #3: ";
+        if (!tn.isValidLink('A', 'B') || !tn.isValidLink('B', 'C')) {
+            return returnString + routeError;
+        }
+        int distance = tn.getLinkDistance('A', 'D');
+        distance += tn.getLinkDistance('D', 'C');
+        return returnString + distance;
     }
     
     // Find distance of route A-E-B-C-D
     public String Question4() {
-        return "Output #4: ";
+        String returnString = "Output #4: ";
+        if (!tn.isValidLink('A', 'E') || !tn.isValidLink('E', 'B') ||
+                !tn.isValidLink('B', 'C') || !tn.isValidLink('C', 'D') ) {
+            return returnString + routeError;
+        }
+        int distance = tn.getLinkDistance('A', 'E');
+        distance += tn.getLinkDistance('E', 'B');
+        distance += tn.getLinkDistance('B', 'C');
+        distance += tn.getLinkDistance('C', 'D');
+        return returnString + distance;
     }
     
     // Find distance of route A-E-D
     public String Question5() {
-        return "Output #5: ";
+        String returnString = "Output #5: ";
+        if (!tn.isValidLink('A', 'E') || !tn.isValidLink('E', 'D')) {
+            return returnString + routeError;
+        }
+        int distance = tn.getLinkDistance('A', 'E');
+        distance += tn.getLinkDistance('E', 'D');
+        return returnString + distance;
+        //return "Output #5: ";
     }
     
     // Find number of trips betwwen C and C with maximum of 3 stops
