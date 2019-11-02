@@ -5,6 +5,9 @@
  */
 package io.github.mattw46;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Matthew Wall
@@ -75,8 +78,14 @@ public class FactFinder {
         //return "Output #5: ";
     }
     
-    // Find number of trips betwwen C and C with maximum of 3 stops
+    // Find number of trips between C and C with maximum of 3 stops
     public String Question6() {
+        List<Character> connectedStops = tn.getConnectionsFrom('C');
+        int routes = 0;
+        
+        for (Character current : connectedStops) {
+            
+        }
         return "Output #6: ";
     }
     

@@ -4,6 +4,9 @@
  */
 package io.github.mattw46;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Matthew Wall
@@ -16,7 +19,9 @@ public class TrainNetwork {
     private final int D = 3;
     private final int E = 4;
     
-    public final int stations = 5;
+    char[] indexCharacter = {'A', 'B', 'C', 'D', 'E'};
+    
+    public final int stationCount = 5;
     
     // Adjacencey matrix to store station links
     private int[][] network;
@@ -26,10 +31,10 @@ public class TrainNetwork {
      * 0 used where no link exists
     */
     public TrainNetwork() {
-        network = new int[stations][stations];
+        network = new int[stationCount][stationCount];
         
-        for (int i = 0; i < stations; i++) {
-            for (int j = 0; j < stations; j++) {
+        for (int i = 0; i < stationCount; i++) {
+            for (int j = 0; j < stationCount; j++) {
                 network[i][j] = 0;
             }
         }
@@ -62,5 +67,36 @@ public class TrainNetwork {
     // returns the distance between stations or 0 where no link exists
     public int getLinkDistance(char start, char end) {
         return network[mapStation(start)][mapStation(end)];
+    }
+    
+    // Returns the number of routes with stops less than maxStops
+    public int getNumberRoutes(char start, char end, int maxStops) {
+        int startIndex = mapStation(start);
+        int endIndex = mapStation(end);
+        int stops = 0;
+        
+        return 0;
+    }
+    
+    // Returns path length where less than max length
+    private int getPathBelowMax(char start, char end, int maxStops) {
+        return 0;
+    }
+    
+    // Returns true if path length is exact distance
+    private boolean getPathWithLength(char start, char end, int stops) {
+        return false;
+    }
+    
+    // Returns list of stations connected to from station
+    public List<Character> getConnectionsFrom(char fromStation) {
+        List<Character> stations = new ArrayList<Character>();
+        int fromIndex = mapStation(fromStation);
+        for (int i = 0; i < stationCount; i++) {
+            if (network[fromIndex][i] > 0) {
+                stations.add(indexCharacter[i]);
+            }
+        }
+        return stations;
     }
 }
