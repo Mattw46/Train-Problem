@@ -82,11 +82,17 @@ public class FactFinder {
     public String Question6() {
         List<Character> connectedStops = tn.getConnectionsFrom('C');
         int routes = 0;
+        int result = 0;
         
         for (Character current : connectedStops) {
-            
+            if (tn.validPathUnderMax(current, 'C', 3)) {
+                routes++;
+            }     
         }
-        return "Output #6: ";
+        if (routes > 0) {
+            return "Output #6: " + routes;
+        }
+        return "Output #6: " + routeError;
     }
     
     // Find number of trips between A and C with exactly 4 stops

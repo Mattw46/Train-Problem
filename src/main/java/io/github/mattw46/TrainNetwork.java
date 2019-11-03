@@ -78,6 +78,64 @@ public class TrainNetwork {
         return 0;
     }
     
+    // return true if path from start to end found in less than max stops
+    public boolean validPathUnderMax(char start, char end, int max) {
+        int from = mapStation(start);
+        int to = mapStation(end);
+        int stops = 0;
+         
+        return findPath(from, to, stops, max);
+    }
+    
+    private boolean findPath(int from, int to, int stopCount, int maxStops) {
+        boolean result = false;
+        
+        // check for base case and return if true
+        if (from == to && stopCount <= maxStops) {
+            return true;
+        }
+        
+        // get list of connections with from
+        System.out.println("get connections from: " + from + " to " + to);
+        List<Integer> connections = getIndexFrom(from);
+        
+        // interate list and check if criteria is met or exceeded
+        for (Integer current : connections) {
+            //System.out.println("current: " + current + " to " + indexCharacter[to]);
+            if (current == to) {
+                if (stopCount + 1 <= maxStops) {
+                    System.out.println("Found path: " + indexCharacter[from] + " to " + indexCharacter[to]);
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else if (stopCount + 1 > maxStops) {
+                return false;
+            }
+            
+            // recusively check next connections
+            //System.out.println("Calling findPath(" + mapStation(current) + " " + to + ")");
+            result = findPath(current, to, stopCount + 1, maxStops);
+            if (result == true) {
+                return result;
+            }
+            
+            return false;
+        }
+        
+        
+        
+        return false;
+    }
+    
+    // return true if path from start to end if stop count matches stops
+    public boolean validPathMatching(char start, char end, int stops) {
+        
+        return false;
+    }
+    
     // Returns path length where less than max length
     private int getPathBelowMax(char start, char end, int maxStops) {
         return 0;
@@ -94,7 +152,21 @@ public class TrainNetwork {
         int fromIndex = mapStation(fromStation);
         for (int i = 0; i < stationCount; i++) {
             if (network[fromIndex][i] > 0) {
+                System.out.println("adding " + indexCharacter[i]);
                 stations.add(indexCharacter[i]);
+            }
+        }
+        return stations;
+    }
+    
+    // Returns list of stations connected to from station
+    private List<Integer> getIndexFrom(int fromIndex) {
+        List<Integer> stations = new ArrayList<Integer>();
+        
+        for (int i = 0; i < stationCount; i++) {
+            if (network[fromIndex][i] > 0) {
+                System.out.println("adding " + indexCharacter[i]);
+                stations.add(i);
             }
         }
         return stations;
