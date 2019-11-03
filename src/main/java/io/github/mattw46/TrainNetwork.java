@@ -69,15 +69,6 @@ public class TrainNetwork {
         return network[mapStation(start)][mapStation(end)];
     }
     
-    // Returns the number of routes with stops less than maxStops
-    public int getNumberRoutes(char start, char end, int maxStops) {
-        int startIndex = mapStation(start);
-        int endIndex = mapStation(end);
-        int stops = 0;
-        
-        return 0;
-    }
-    
     // return true if path from start to end found in less than max stops
     public boolean validPathUnderMax(char start, char end, int max) {
         int from = mapStation(start);
@@ -96,15 +87,12 @@ public class TrainNetwork {
         }
         
         // get list of connections with from
-        System.out.println("get connections from: " + from + " to " + to);
         List<Integer> connections = getIndexFrom(from);
         
         // interate list and check if criteria is met or exceeded
         for (Integer current : connections) {
-            //System.out.println("current: " + current + " to " + indexCharacter[to]);
             if (current == to) {
                 if (stopCount + 1 <= maxStops) {
-                    System.out.println("Found path: " + indexCharacter[from] + " to " + indexCharacter[to]);
                     return true;
                 }
                 else {
@@ -116,7 +104,6 @@ public class TrainNetwork {
             }
             
             // recusively check next connections
-            //System.out.println("Calling findPath(" + mapStation(current) + " " + to + ")");
             result = findPath(current, to, stopCount + 1, maxStops);
             if (result == true) {
                 return result;
@@ -125,25 +112,71 @@ public class TrainNetwork {
             return false;
         }
         
-        
-        
         return false;
     }
     
     // return true if path from start to end if stop count matches stops
-    public boolean validPathMatching(char start, char end, int stops) {
+    public int getPathCountByDistance(char start, char end, int targetStops, int routes) {
+        int from = mapStation(start);
+        int to = mapStation(end);
+        int paths = 0;
         
-        return false;
+        List<Integer> connections = getIndexFrom(from);
+        
+        for (Integer link : connections) {
+            if (findPathXsteps(link, to, targetStops, 1)) {
+                paths++;
+            }
+        }
+        
+        return paths;
     }
     
-    // Returns path length where less than max length
-    private int getPathBelowMax(char start, char end, int maxStops) {
-        return 0;
+    // return true if path found of length of target length
+    private boolean findPathXsteps(int from, int to, int target, int currentDistance) {
+        
+        boolean result = false;
+        // check base case
+        if (currentDistance > target) {
+            return false;
+        }
+        if (currentDistance == target && from == to) {
+            return true;
+        }
+        
+        List<Integer> connections = getIndexFrom(from);
+        
+        for (Integer link : connections) {
+            result = findPathXsteps(link, to, 4, currentDistance + 1);
+        }
+        
+        return result;
+          
     }
     
-    // Returns true if path length is exact distance
-    private boolean getPathWithLength(char start, char end, int stops) {
-        return false;
+    public int getShortestPath(char start, char end) {
+        int from = mapStation(start);
+        int to = mapStation(end);
+        int path = 0;
+        
+        List<Integer> connections = getIndexFrom(from);
+        int first = connections.get(0);
+        path = getPathLength(first, to, 0);
+        for (Integer link : connections) {
+            path += getPathLength(from, to, 0);
+        }
+        
+        return path;
+    }
+    
+    private int getPathLength(int from, int to, int length) {
+        
+        List<Integer> connections = getIndexFrom(from);
+        for (Integer link : connections) {
+            length++;
+            length += getPathLength(link,to,length);
+        }
+        return length;
     }
     
     // Returns list of stations connected to from station
@@ -152,20 +185,18 @@ public class TrainNetwork {
         int fromIndex = mapStation(fromStation);
         for (int i = 0; i < stationCount; i++) {
             if (network[fromIndex][i] > 0) {
-                System.out.println("adding " + indexCharacter[i]);
                 stations.add(indexCharacter[i]);
             }
         }
         return stations;
     }
     
-    // Returns list of stations connected to from station
+    // Returns list of index (internal representation) connected to from station
     private List<Integer> getIndexFrom(int fromIndex) {
         List<Integer> stations = new ArrayList<Integer>();
         
         for (int i = 0; i < stationCount; i++) {
             if (network[fromIndex][i] > 0) {
-                System.out.println("adding " + indexCharacter[i]);
                 stations.add(i);
             }
         }

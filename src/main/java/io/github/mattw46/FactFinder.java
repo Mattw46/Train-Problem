@@ -97,12 +97,21 @@ public class FactFinder {
     
     // Find number of trips between A and C with exactly 4 stops
     public String Question7() {
-        return "Output #7: ";
+        List<Character> connectedStops = tn.getConnectionsFrom('A');
+        
+        int routes = 0; 
+        routes = tn.getPathCountByDistance('A', 'C', 4, routes);
+        if (routes > 0) {
+            return "Output #7: " + routes;
+        }
+        return "Output #7: " + routeError;
+        //return "Output #7: ";
     }
     
     // length of shortest route between A and C
     public String Question8() {
-        return "Output #8: ";
+        
+        return "Output #8: " + routeError;
     }
     
     // length of shortest route between B and B
