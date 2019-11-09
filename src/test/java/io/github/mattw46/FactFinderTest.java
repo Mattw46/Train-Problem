@@ -47,8 +47,6 @@ public class FactFinderTest {
         String expResult = "Output #1: 9";
         String result = instance.Question1();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -61,8 +59,6 @@ public class FactFinderTest {
         String expResult = "Output #2: 5";
         String result = instance.Question2();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -75,8 +71,6 @@ public class FactFinderTest {
         String expResult = "Output #3: 13";
         String result = instance.Question3();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -89,8 +83,6 @@ public class FactFinderTest {
         String expResult = "Output #4: 22";
         String result = instance.Question4();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -103,8 +95,6 @@ public class FactFinderTest {
         String expResult = "Output #5: NO SUCH ROUTE";
         String result = instance.Question5();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -117,8 +107,6 @@ public class FactFinderTest {
         String expResult = "Output #6: 2";
         String result = instance.Question6();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -131,8 +119,6 @@ public class FactFinderTest {
         String expResult = "Output #7: 3";
         String result = instance.Question7();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -145,8 +131,6 @@ public class FactFinderTest {
         String expResult = "Output #8: 9";
         String result = instance.Question8();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -159,8 +143,6 @@ public class FactFinderTest {
         String expResult = "Output #9: 9";
         String result = instance.Question9();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -173,8 +155,6 @@ public class FactFinderTest {
         String expResult = "Output #9: 9";
         String result = instance.Question10();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
     
 }

@@ -44,10 +44,13 @@ public class FactFinder {
     // Find distance of route A-D-C
     public String Question3() {
         String returnString = "Output #3: ";
+        int distance;
+        
+        //distance = getDistance('A', char end);
         if (!tn.isValidLink('A', 'B') || !tn.isValidLink('B', 'C')) {
             return returnString + routeError;
         }
-        int distance = tn.getLinkDistance('A', 'D');
+        distance = tn.getLinkDistance('A', 'D');
         distance += tn.getLinkDistance('D', 'C');
         return returnString + distance;
     }
@@ -80,15 +83,8 @@ public class FactFinder {
     
     // Find number of trips between C and C with maximum of 3 stops
     public String Question6() {
-        List<Character> connectedStops = tn.getConnectionsFrom('C');
-        int routes = 0;
-        int result = 0;
+        int routes = tn.getPathInLength('C', 'C', 3);
         
-        for (Character current : connectedStops) {
-            if (tn.validPathUnderMax(current, 'C', 3)) {
-                routes++;
-            }     
-        }
         if (routes > 0) {
             return "Output #6: " + routes;
         }
@@ -97,10 +93,8 @@ public class FactFinder {
     
     // Find number of trips between A and C with exactly 4 stops
     public String Question7() {
-        List<Character> connectedStops = tn.getConnectionsFrom('A');
+        int routes = tn.getPathExactLength('A', 'C', 0, 0, 4);
         
-        int routes = 0; 
-        routes = tn.getPathCountByDistance('A', 'C', 4, routes);
         if (routes > 0) {
             return "Output #7: " + routes;
         }
@@ -110,7 +104,10 @@ public class FactFinder {
     
     // length of shortest route between A and C
     public String Question8() {
-        
+        int routes = tn.getShortestPath('A', 'C');
+        if (routes > 0) {
+            return "Output #8: " + routes;
+        }
         return "Output #8: " + routeError;
     }
     
