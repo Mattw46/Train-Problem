@@ -39,20 +39,20 @@ public class TrainNetwork {
         return findPath(start, end, stops, max);
     }
     
-    private boolean findPath(char from, char to, int stopCount, int maxStops) {
+    private boolean findPath(char start, char end, int stopCount, int maxStops) {
         boolean result = false;
         
         // check for base case and return if true
-        if (from == to && stopCount <= maxStops) {
+        if (start== end && stopCount <= maxStops) {
             return true;
         }
         
         // get list of connections with from
-        List<Character> connections = ng.getConnectionsFrom(from);
+        List<Character> connections = ng.getConnectionsFrom(start);
         
         // interate list and check if criteria is met or exceeded
         for (Character current : connections) {
-            if (current == to) {
+            if (current == end) {
                 if (stopCount + 1 <= maxStops) {
                     return true;
                 }
@@ -65,7 +65,7 @@ public class TrainNetwork {
             }
             
             // recusively check next connections
-            result = findPath(current, to, stopCount + 1, maxStops);
+            result = findPath(current, end, stopCount + 1, maxStops);
             if (result == true) {
                 return result;
             }
@@ -77,9 +77,9 @@ public class TrainNetwork {
     }
     
     // return number of paths with length up to targetStops
-    public int getPathCountByDistance(char start, char end, int targetStops, int routes) {
-        //int from = mapStation(start);
-        //int to = mapStation(end);
+    public int getPathCountByDistance(char start, char end, int targetStops, 
+            int routes) {
+
         int paths = 0;
         
         List<Character> connections = ng.getConnectionsFrom(start);
@@ -94,21 +94,22 @@ public class TrainNetwork {
     }
     
     // return true if path found of length of target length
-    private boolean findPathXsteps(char from, char to, int target, int currentDistance) {
+    private boolean findPathXsteps(char start, char end, int target, 
+            int currentDistance) {
         
         boolean result = false;
         // check base case
         if (currentDistance > target) {
             return false;
         }
-        if (currentDistance == target && from == to) {
+        if (currentDistance == target && start == end) {
             return true;
         }
         
-        List<Character> connections = ng.getConnectionsFrom(from);
+        List<Character> connections = ng.getConnectionsFrom(start);
         
         for (Character link : connections) {
-            result = findPathXsteps(link, to, 4, currentDistance + 1);
+            result = findPathXsteps(link, end, 4, currentDistance + 1);
         }
         
         return result;
@@ -138,7 +139,7 @@ public class TrainNetwork {
     }
     
     
-    private int getPathLength(char from, char to, int length) {
+    /*private int getPathLength(char from, char to, int length) {
         
         List<Character> connections = ng.getConnectionsFrom(from);
         for (Character link : connections) {
@@ -146,7 +147,7 @@ public class TrainNetwork {
             length += getPathLength(link,to,length);
         }
         return length;
-    }
+    }*/
     
     
     /* Returns a count of paths found with exact number of stops */
@@ -180,7 +181,9 @@ public class TrainNetwork {
         return pathCount;
     }
     
-    /* Return a count of paths found with length up to defined limit  (wrapper method)*/
+    /* Return a count of paths found with length up to 
+     * defined limit  (wrapper method)
+     */
     public int getPathInLength(char start, char end, int maxSteps) {
         int pathCount = 0;
         int currentSteps = 1; // 1 accounts for first link
@@ -233,12 +236,14 @@ public class TrainNetwork {
         int currentSteps = 0; 
         int travelled = 0; // Distance travelled
         
-        shortestPath = getShortestPath(start, end, shortestPath, currentSteps, travelled);
+        shortestPath = 
+                getShortestPath(start, end, shortestPath, currentSteps, travelled);
         
         return shortestPath;
     }
     
-    private int getShortestPath(char start, char end, int shortestPath, int currentSteps, int travelled) {
+    private int getShortestPath(char start, char end, int shortestPath, 
+            int currentSteps, int travelled) {
         
         // check base case, end reached and travel has occured (distance > 0)
         if (start == end && travelled > 0) { 
@@ -246,7 +251,8 @@ public class TrainNetwork {
                 shortestPath = travelled; 
                 return shortestPath;
             }
-            else if (shortestPath == 0) { // check if shortestPath is still set to 0
+            // check if shortestPath is still set to 0
+            else if (shortestPath == 0) { 
                 shortestPath = travelled;
                 return shortestPath;
             }
@@ -264,7 +270,8 @@ public class TrainNetwork {
             //System.out.print(start + "->" + current + "->");
             
             travelled += ng.getLinkDistance(start,current);
-            shortestPath = getShortestPath(current, end, shortestPath, 0, travelled);
+            shortestPath = 
+                    getShortestPath(current, end, shortestPath, 0, travelled);
         }
         
         return shortestPath;

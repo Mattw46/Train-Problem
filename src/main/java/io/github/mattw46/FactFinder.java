@@ -113,7 +113,11 @@ public class FactFinder {
     
     // length of shortest route between B and B
     public String Question9() {
-        return "Output #9: ";
+        int routes = tn.getShortestPath('A', 'C');
+        if (routes > 0) {
+            return "Output #9: " + routes;
+        }
+        return "Output #9: " + routeError;
     }
     
     // number of routes between C and C with distance of less than 30
