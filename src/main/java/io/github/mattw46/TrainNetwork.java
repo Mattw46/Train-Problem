@@ -39,6 +39,7 @@ public class TrainNetwork {
         return findPath(start, end, stops, max);
     }
     
+    // Return true if valid path found from start to end with less than maxStops
     private boolean findPath(char start, char end, int stopCount, int maxStops) {
         boolean result = false;
         
@@ -241,6 +242,61 @@ public class TrainNetwork {
         
         return shortestPath;
     }
+    
+    // test
+    
+    public int getShortestCheckedPath(char start, char end) {
+        int shortestPath = 0;
+        List<Character> connections = ng.getConnectionsFrom(start);
+        
+        for (Character current : connections) {
+            shortestPath = getShortestCheckedPath('Z', start, end, shortestPath, 0);
+        }
+        
+        return shortestPath;
+    }
+    private int getShortestCheckedPath(char previous, char start, char end, int shortestPath, int travelled) {
+        // check base case, end reached and travel has occured (distance > 0)
+        if (start == end && travelled > 0) { 
+            if (shortestPath == 0) { 
+                shortestPath = travelled; 
+                return shortestPath;
+            }
+            if (travelled < shortestPath) {
+                shortestPath = travelled; 
+                return shortestPath;
+            }
+            // check if shortestPath is still set to 0
+            
+        }
+        // abort if shortestPath exceeded
+        if (travelled > shortestPath && shortestPath != 0) {
+            return shortestPath;
+        }
+        
+        // get links
+        List<Character> connections = ng.getConnectionsFrom(start);
+        
+        for (char next : connections) {
+            
+            // detect cycle
+            if (previous == next) {
+                return shortestPath;
+            }
+            
+            travelled += ng.getLinkDistance(start,next);
+            
+            
+            previous = start;
+            start = next;
+            shortestPath = 
+                    getShortestCheckedPath(previous, start, end, shortestPath, travelled);
+        }
+        
+        return shortestPath;
+    }
+    
+    // end test
     
     private int getShortestPath(char start, char end, int shortestPath, 
             int currentSteps, int travelled) {

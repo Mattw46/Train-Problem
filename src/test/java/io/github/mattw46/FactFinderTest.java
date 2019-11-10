@@ -151,7 +151,7 @@ public class FactFinderTest {
     public void testQuestion10() {
         System.out.println("Question10");
         FactFinder instance = new FactFinder();
-        String expResult = "Output #9: 9";
+        String expResult = "Output #10: 7";
         String result = instance.Question10();
         assertEquals(expResult, result);
     }
